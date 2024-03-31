@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@clerk/clerk-react": "^4.30.7",
     "@cloudscape-design/components": "^3.0.583",
     "@cloudscape-design/global-styles": "^1.0.25",
+    "cookie": "^0.6.0",
+    "jose": "^5.2.3",
     "parcel": "^2.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
