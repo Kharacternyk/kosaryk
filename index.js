@@ -1,26 +1,44 @@
-import {
-    ClerkProvider,
-    SignInButton,
-    SignedIn,
-    SignedOut,
-    UserButton,
-} from "@clerk/clerk-react";
-import {Alert} from "@cloudscape-design/components";
+import {ClerkProvider, useUser} from "@clerk/clerk-react";
+import {TopNavigation} from "@cloudscape-design/components";
 import {StrictMode} from "react";
 import {createRoot} from "react-dom/client";
 
 const key = "pk_test_c3RhYmxlLWNhdGZpc2gtMTMuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
+const App = () => {
+  const { isSignedIn, user } = useUser();
+  const utilities = isSignedIn
+    ? [
+        {
+          type: "button",
+          text: `Signed in as ${user.emailAddresses[0]}`,
+          href: "https://stable-catfish-13.accounts.dev/user",
+        },
+      ]
+    : [
+        {
+          type: "button",
+          text: "Sign in",
+          href: "https://stable-catfish-13.accounts.dev/sign-in",
+        },
+        {
+          type: "button",
+          text: "Sign up",
+          href: "https://stable-catfish-13.accounts.dev/sign-up",
+        },
+      ];
+  const identity = {
+    title: "Kosaryk",
+    href: "/",
+  };
+
+  return <TopNavigation utilities={utilities} identity={identity} />;
+};
+
 const body = (
   <StrictMode>
     <ClerkProvider publishableKey={key}>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <Alert>Hello!</Alert>
+      <App />
     </ClerkProvider>
   </StrictMode>
 );
