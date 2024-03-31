@@ -1,5 +1,6 @@
 import {ClerkProvider, useUser} from "@clerk/clerk-react";
 import {TopNavigation} from "@cloudscape-design/components";
+import "@cloudscape-design/global-styles";
 import {StrictMode} from "react";
 import {createRoot} from "react-dom/client";
 
