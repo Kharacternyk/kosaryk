@@ -21,6 +21,11 @@ export const onRequest = async (context) => {
 
     if (result.success) {
       userName = searchParams.get("name");
+
+      await context.env.db
+        .prepare("insert into bands(name) values(?)")
+        .bind(userName)
+        .run();
     }
   }
 
