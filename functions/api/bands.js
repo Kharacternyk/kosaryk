@@ -1,47 +1,21 @@
-import {getQuery, isBot, respond} from "../../functions";
+import {createHandler} from "../../functions";
 
-export const onRequestPost = async (context) => {
-  const query = getQuery(context);
-  const name = query.get("name");
+export const onRequestPost = createHandler({
+  requiredKeys: ["name"],
+  run: (database, name) =>
+    database.prepare("insert into bands(name) values(?)").bind(name).run(),
+});
 
-  if (name == null) {
-    return respond(400);
-  }
-  if (await isBot(query.get("token"), context.env.turnstileSecret)) {
-    return respond(401);
-  }
+export const onRequestDelete = createHandler({
+  requiredKeys: ["identity"],
+  run: (database, identity) =>
+    database
+      .prepare("delete from bands where identity = ?")
+      .bind(identity)
+      .run(),
+});
 
-  await context.env.db
-    .prepare("insert into bands(name) values(?)")
-    .bind(name)
-    .run();
-
-  return respond();
-};
-
-export const onRequestDelete = async (context) => {
-  const query = getQuery(context);
-  const identity = query.get("identity");
-
-  if (identity == null) {
-    return respond(400);
-  }
-  if (await isBot(query.get("token"), context.env.turnstileSecret)) {
-    return respond(401);
-  }
-
-  await context.env.db
-    .prepare("delete from bands where identity = ?")
-    .bind(identity)
-    .run();
-
-  return respond();
-};
-
-export const onRequestGet = async (context) => {
-  const { results } = await context.env.db
-    .prepare("select identity, name from bands")
-    .all();
-
-  return Response.json(results);
-};
+export const onRequestGet = createHandler({
+  isPublic: true,
+  run: (database) => database.prepare("select identity, name from bands").all(),
+});

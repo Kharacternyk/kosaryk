@@ -1,16 +1,50 @@
-export const respond = (status = 200) => new Response(null, { status });
+export const createHandler =
+  ({ run, requiredKeys = [], optionalKeys = [], isPublic = false }) =>
+  async (context) => {
+    context.request.body?.cancel();
 
-export const getQuery = (context) => {
-  const { searchParams } = new URL(context.request.url);
+    const { searchParams } = new URL(context.request.url);
 
-  context.request.body?.cancel();
+    if (
+      !isPublic &&
+      !(await isVerifiedHuman(
+        searchParams.get("token"),
+        context.env.turnstileSecret
+      ))
+    ) {
+      return new Response(null, { status: 401 });
+    }
 
-  return searchParams;
-};
+    const requiredValues = [];
 
-export const isBot = async (token, secret) => {
-  if (token == null) {
-    return true;
+    for (const key of requiredKeys) {
+      if (!searchParams.has(key)) {
+        return new Response(null, { status: 400 });
+      }
+      requiredValues.push(searchParams.get(key));
+    }
+
+    const optionalValues = optionalKeys.map((key) => searchParams.get(key));
+    const result = await run(
+      context.env.database,
+      ...requiredValues,
+      ...optionalValues
+    );
+
+    if (!result || !result.meta) {
+      return Response.json(result);
+    }
+
+    if (result.results) {
+      return Response.json(result.results);
+    }
+
+    return new Response();
+  };
+
+const isVerifiedHuman = async (token, secret) => {
+  if (!token) {
+    return false;
   }
 
   const body = new FormData();
@@ -22,10 +56,10 @@ export const isBot = async (token, secret) => {
     "https://challenges.cloudflare.com/turnstile/v0/siteverify",
     {
       body,
-      method: "POST",
+      method: "post",
     }
   );
-  const result = await response.json();
+  const { success } = await response.json();
 
-  return !result.success;
+  return success;
 };
