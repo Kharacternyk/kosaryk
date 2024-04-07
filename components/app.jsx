@@ -5,7 +5,7 @@ import {StrictMode, useRef, useState} from "react";
 const turnstileProperies = {
   siteKey: import.meta.env.viteTurnstileSiteKey,
   options: {
-    size: "invisible",
+    size: "compact",
   },
 };
 
