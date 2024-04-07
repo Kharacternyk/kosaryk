@@ -2,13 +2,6 @@ import {AppLayout, Button, Input} from "@cloudscape-design/components";
 import {Turnstile} from "@marsidev/react-turnstile";
 import {StrictMode, useRef, useState} from "react";
 
-const turnstileProperies = {
-  siteKey: import.meta.env.viteTurnstileSiteKey,
-  options: {
-    size: "compact",
-  },
-};
-
 export const App = () => {
   const turnstileRef = useRef();
   const [name, setName] = useState("");
@@ -27,6 +20,8 @@ export const App = () => {
       await turnstileRef.current.getResponsePromise()
     );
 
+    turnstileRef.current.reset();
+
     const response = await fetch(url, { method: "post" });
 
     console.log({ ok: response.ok });
@@ -36,7 +31,10 @@ export const App = () => {
 
   const content = (
     <>
-      <Turnstile ref={turnstileRef} {...turnstileProperies} />
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={import.meta.env.viteTurnstileSiteKey}
+      />
       <Input value={name} onChange={onInput} />
       <Button onClick={onPost}>Post</Button>
       <Button onClick={onGet}>Get</Button>
