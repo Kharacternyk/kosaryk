@@ -8,6 +8,9 @@ dependencies:
   '@cloudscape-design/components':
     specifier: ^3.0.583
     version: 3.0.583(react-dom@18.2.0)(react@18.2.0)
+  '@cloudscape-design/design-tokens':
+    specifier: ^3.0.35
+    version: 3.0.35
   '@cloudscape-design/global-styles':
     specifier: ^1.0.25
     version: 1.0.25
@@ -78,6 +81,10 @@ packages:
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
       tslib: 2.6.2
       weekstart: 1.1.0
+    dev: false
+
+  /@cloudscape-design/design-tokens@3.0.35:
+    resolution: {integrity: sha512-oZk8QBYfn/7+BRsoaXuIvD0NZYvbhqvxGoi8X/jvqU55nzFVMWP3fhZYkOQ3iO9egXGJJuspHru3e1wIsV1ynQ==}
     dev: false
 
   /@cloudscape-design/global-styles@1.0.25:

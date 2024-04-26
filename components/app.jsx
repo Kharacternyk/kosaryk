@@ -1,4 +1,15 @@
-import {AppLayout, Button, Input, Table} from "@cloudscape-design/components";
+import {
+  AppLayout,
+  BarChart,
+  Button,
+  Input,
+  Table,
+} from "@cloudscape-design/components";
+import {
+  colorChartsPaletteCategorical1,
+  colorChartsPaletteCategorical2,
+  colorChartsPaletteCategorical3,
+} from "@cloudscape-design/design-tokens";
 import {Turnstile} from "@marsidev/react-turnstile";
 import {StrictMode, useEffect, useRef, useState} from "react";
 
@@ -70,6 +81,59 @@ export const App = () => {
     },
   ];
 
+  const series = [
+    {
+      title: "Intro",
+      type: "bar",
+      valueFormatter: (seconds) => `${seconds}s`,
+      color: colorChartsPaletteCategorical1,
+      data: [
+        { x: "Fuel", y: 67 },
+        { x: "For Whom The Bell Tolls", y: 121 },
+      ],
+    },
+    {
+      title: "Unmapped 1",
+      type: "bar",
+      valueFormatter: (seconds) => `${seconds}s`,
+      color: colorChartsPaletteCategorical2,
+      data: [
+        { x: "Fuel", y: 89 },
+        { x: "For Whom The Bell Tolls", y: 30 },
+      ],
+    },
+    {
+      title: "Chorus 1",
+      type: "bar",
+      valueFormatter: (seconds) => `${seconds}s`,
+      color: colorChartsPaletteCategorical3,
+      data: [
+        { x: "Fuel", y: 50 },
+        { x: "For Whom The Bell Tolls", y: 41 },
+      ],
+    },
+    {
+      title: "Unmapped 2",
+      type: "bar",
+      valueFormatter: (seconds) => `${seconds}s`,
+      color: colorChartsPaletteCategorical2,
+      data: [
+        { x: "Fuel", y: 89 },
+        { x: "For Whom The Bell Tolls", y: 50 },
+      ],
+    },
+    {
+      title: "Chorus 2",
+      type: "bar",
+      valueFormatter: (seconds) => `${seconds}s`,
+      color: colorChartsPaletteCategorical3,
+      data: [
+        { x: "Fuel", y: 50 },
+        { x: "For Whom The Bell Tolls", y: 30 },
+      ],
+    },
+  ];
+
   const content = (
     <>
       <Table
@@ -83,6 +147,7 @@ export const App = () => {
       />
       <Input value={name} onChange={onInput} />
       <Button onClick={addBand}>Add</Button>
+      <BarChart series={series} horizontalBars stackedBars />
     </>
   );
 

@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@cloudscape-design/components": "^3.0.583",
+    "@cloudscape-design/design-tokens": "^3.0.35",
     "@cloudscape-design/global-styles": "^1.0.25",
     "@marsidev/react-turnstile": "^0.5.3",
     "@vitejs/plugin-react-swc": "^3.6.0",
