@@ -5,6 +5,8 @@ import {
   Input,
   Table,
 } from "@cloudscape-design/components";
+import {I18nProvider} from "@cloudscape-design/components/i18n";
+import messages from "@cloudscape-design/components/i18n/messages/all.en";
 import {
   colorChartsPaletteCategorical1,
   colorChartsPaletteCategorical2,
@@ -158,7 +160,9 @@ export const App = () => {
 
   return (
     <StrictMode>
-      <AppLayout content={content} />
+      <I18nProvider messages={[messages]}>
+        <AppLayout content={content} />
+      </I18nProvider>
     </StrictMode>
   );
 };
