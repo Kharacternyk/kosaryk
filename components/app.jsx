@@ -89,7 +89,7 @@ export const App = () => {
       type: "bar",
       valueFormatter: (seconds) => `${seconds}s`,
       color: colorChartsPaletteCategorical1,
-      data: [{ x: "For Whom The Bell Tolls", y: 121 }],
+      data: [{ x: "For\nWhom\nThe\nBell\nTolls", y: 121 }],
     },
     {
       title: "Unmapped 1",
@@ -98,7 +98,7 @@ export const App = () => {
       color: colorChartsPaletteCategorical2,
       data: [
         { x: "Fuel", y: 89 },
-        { x: "For Whom The Bell Tolls", y: 30 },
+        { x: "For\nWhom\nThe\nBell\nTolls", y: 30 },
       ],
     },
     {
@@ -108,7 +108,7 @@ export const App = () => {
       color: colorChartsPaletteCategorical3,
       data: [
         { x: "Fuel", y: 50 },
-        { x: "For Whom The Bell Tolls", y: 41 },
+        { x: "For\nWhom\nThe\nBell\nTolls", y: 41 },
       ],
     },
     {
@@ -118,7 +118,7 @@ export const App = () => {
       color: colorChartsPaletteCategorical2,
       data: [
         { x: "Fuel", y: 89 },
-        { x: "For Whom The Bell Tolls", y: 50 },
+        { x: "For\nWhom\nThe\nBell\nTolls", y: 50 },
       ],
     },
     {
@@ -128,7 +128,7 @@ export const App = () => {
       color: colorChartsPaletteCategorical3,
       data: [
         { x: "Fuel", y: 50 },
-        { x: "For Whom The Bell Tolls", y: 30 },
+        { x: "For\nWhom\nThe\nBell\nTolls", y: 30 },
       ],
     },
   ];
@@ -147,7 +147,7 @@ export const App = () => {
       <Input value={name} onChange={onInput} />
       <Button onClick={addBand}>Add</Button>
       <BarChart
-        xDomain={["Fuel", "For Whom The Bell Tolls"]}
+        xDomain={["Fuel", "For\nWhom\nThe\nBell\nTolls"]}
         series={series}
         horizontalBars
         stackedBars
