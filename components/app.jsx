@@ -1,19 +1,9 @@
-import {
-  AppLayout,
-  BarChart,
-  Button,
-  Input,
-  Table,
-} from "@cloudscape-design/components";
+import {AppLayout, Button, Input, Table} from "@cloudscape-design/components";
 import {I18nProvider} from "@cloudscape-design/components/i18n";
 import messages from "@cloudscape-design/components/i18n/messages/all.en";
-import {
-  colorChartsPaletteCategorical1,
-  colorChartsPaletteCategorical2,
-  colorChartsPaletteCategorical3,
-} from "@cloudscape-design/design-tokens";
 import {Turnstile} from "@marsidev/react-turnstile";
 import {StrictMode, useEffect, useRef, useState} from "react";
+import {SongBar} from "./song-bar";
 
 export const App = () => {
   const turnstileRef = useRef();
@@ -83,56 +73,6 @@ export const App = () => {
     },
   ];
 
-  const series = [
-    {
-      title: "Intro",
-      type: "bar",
-      valueFormatter: (seconds) => `${seconds}s`,
-      color: colorChartsPaletteCategorical1,
-      data: [{ x: "For\nWhom\nThe\nBell\nTolls", y: 121 }],
-    },
-    {
-      title: "Unmapped 1",
-      type: "bar",
-      valueFormatter: (seconds) => `${seconds}s`,
-      color: colorChartsPaletteCategorical2,
-      data: [
-        { x: "Fuel", y: 89 },
-        { x: "For\nWhom\nThe\nBell\nTolls", y: 30 },
-      ],
-    },
-    {
-      title: "Chorus 1",
-      type: "bar",
-      valueFormatter: (seconds) => `${seconds}s`,
-      color: colorChartsPaletteCategorical3,
-      data: [
-        { x: "Fuel", y: 50 },
-        { x: "For\nWhom\nThe\nBell\nTolls", y: 41 },
-      ],
-    },
-    {
-      title: "Unmapped 2",
-      type: "bar",
-      valueFormatter: (seconds) => `${seconds}s`,
-      color: colorChartsPaletteCategorical2,
-      data: [
-        { x: "Fuel", y: 89 },
-        { x: "For\nWhom\nThe\nBell\nTolls", y: 50 },
-      ],
-    },
-    {
-      title: "Chorus 2",
-      type: "bar",
-      valueFormatter: (seconds) => `${seconds}s`,
-      color: colorChartsPaletteCategorical3,
-      data: [
-        { x: "Fuel", y: 50 },
-        { x: "For\nWhom\nThe\nBell\nTolls", y: 30 },
-      ],
-    },
-  ];
-
   const content = (
     <>
       <Table
@@ -146,15 +86,7 @@ export const App = () => {
       />
       <Input value={name} onChange={onInput} />
       <Button onClick={addBand}>Add</Button>
-      <BarChart
-        xDomain={["Fuel", "For\nWhom\nThe\nBell\nTolls"]}
-        series={series}
-        horizontalBars
-        stackedBars
-        hideFilter
-        yTitle="Seconds"
-        xTitle="Songs"
-      />
+      <SongBar songs={songs} />
     </>
   );
 
@@ -166,3 +98,104 @@ export const App = () => {
     </StrictMode>
   );
 };
+
+const songs = [
+  {
+    name: "Fuel",
+    length: 300,
+    segments: [
+      {
+        name: "Chorus",
+        start: 60,
+        end: 75,
+      },
+      {
+        name: "Chorus",
+        start: 90,
+        end: 105,
+      },
+      {
+        name: "Chorus",
+        start: 200,
+        end: 230,
+      },
+      {
+        name: "Outro",
+        start: 260,
+        end: 299,
+      },
+    ],
+  },
+  {
+    name: "For Whom The Bell Tolls",
+    length: 270,
+    segments: [
+      {
+        name: "Intro",
+        start: 0,
+        end: 123,
+      },
+      {
+        name: "Chorus",
+        start: 150,
+        end: 160,
+      },
+      {
+        name: "Solo",
+        start: 161,
+        end: 200,
+      },
+      {
+        name: "Chorus",
+        start: 220,
+        end: 240,
+      },
+      {
+        name: "Outro",
+        start: 260,
+        end: 269,
+      },
+    ],
+  },
+  {
+    name: "Master Of Puppets",
+    length: 476,
+    segments: [
+      {
+        name: "Intro",
+        start: 0,
+        end: 61,
+      },
+      {
+        name: "Chorus",
+        start: 100,
+        end: 120,
+      },
+      {
+        name: "Chorus",
+        start: 150,
+        end: 170,
+      },
+      {
+        name: "Solo",
+        start: 200,
+        end: 220,
+      },
+      {
+        name: "Solo",
+        start: 250,
+        end: 280,
+      },
+      {
+        name: "Chorus",
+        start: 330,
+        end: 380,
+      },
+      {
+        name: "Outro",
+        start: 450,
+        end: 476,
+      },
+    ],
+  },
+];
