@@ -103,99 +103,88 @@ const songs = [
   {
     name: "Fuel",
     length: 300,
+    intro: 0,
+    outro: 39,
+    instrumental: false,
     segments: [
       {
-        name: "Chorus",
+        type: 0,
         start: 60,
         end: 75,
       },
       {
-        name: "Chorus",
+        type: 0,
         start: 90,
         end: 105,
       },
       {
-        name: "Chorus",
+        type: 0,
         start: 200,
         end: 230,
-      },
-      {
-        name: "Outro",
-        start: 260,
-        end: 299,
       },
     ],
   },
   {
     name: "For Whom The Bell Tolls",
     length: 270,
+    intro: 123,
+    outro: 9,
+    instrumental: false,
     segments: [
       {
-        name: "Intro",
-        start: 0,
-        end: 123,
-      },
-      {
-        name: "Chorus",
+        type: 0,
         start: 150,
         end: 160,
       },
       {
-        name: "Solo",
+        type: 1,
         start: 161,
         end: 200,
       },
       {
-        name: "Chorus",
+        type: 0,
         start: 220,
         end: 240,
-      },
-      {
-        name: "Outro",
-        start: 260,
-        end: 269,
       },
     ],
   },
   {
     name: "Master Of Puppets",
     length: 476,
+    intro: 61,
+    outro: 26,
+    instrumental: false,
     segments: [
       {
-        name: "Intro",
-        start: 0,
-        end: 61,
-      },
-      {
-        name: "Chorus",
+        type: 0,
         start: 100,
         end: 120,
       },
       {
-        name: "Chorus",
+        type: 0,
         start: 150,
         end: 170,
       },
       {
-        name: "Solo",
+        type: 1,
         start: 200,
         end: 220,
       },
       {
-        name: "Solo",
+        type: 1,
         start: 250,
         end: 280,
       },
       {
-        name: "Chorus",
+        type: 0,
         start: 330,
         end: 380,
       },
-      {
-        name: "Outro",
-        start: 450,
-        end: 476,
-      },
     ],
+  },
+  {
+    name: "Orion",
+    length: 462,
+    instrumental: true,
   },
 ];
