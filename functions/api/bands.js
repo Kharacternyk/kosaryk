@@ -1,4 +1,4 @@
-import {createHandler} from "../../functions";
+import {createHandler} from "../../server/handler";
 
 export const onRequestPost = createHandler({
   requiredKeys: ["name"],
