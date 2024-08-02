@@ -4,13 +4,18 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@cloudscape-design/components": "^3.0.583",
-    "@cloudscape-design/design-tokens": "^3.0.35",
-    "@cloudscape-design/global-styles": "^1.0.25",
+    "@headlessui/react": "^2.1.2",
+    "@headlessui/tailwindcss": "^0.2.1",
     "@marsidev/react-turnstile": "^0.5.3",
+    "@remixicon/react": "^4.2.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tremor/react": "^3.17.4",
     "@vitejs/plugin-react-swc": "^3.6.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.7",
     "vite": "^5.2.8"
   }
 }
