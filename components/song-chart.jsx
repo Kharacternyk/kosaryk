@@ -1,6 +1,64 @@
 import {BarChart, Legend} from "@tremor/react";
+import {useMemo} from "react";
 
-export const SongChart = () => {
+export const SongChart = ({ songs }) => {
+  const { bars, categories, colors, names } = useMemo(() => {
+    const bars = [];
+    const indices = [];
+    const names = [];
+    const colors = [];
+    const step = ({ name, color }) => {
+      const index = indices.length;
+      indices.push(String(index));
+      names.push(name);
+      colors.push(color);
+      return index;
+    };
+
+    for (const {
+      name,
+      length,
+      intro,
+      outro,
+      instrumental,
+      segments,
+    } of songs) {
+      if (instrumental) {
+        bars.push({ name, [step(segmentTypes.instrumental)]: length });
+        continue;
+      }
+
+      const bar = { name };
+
+      if (intro) {
+        bar[step(segmentTypes.intro)] = intro;
+      }
+
+      let time = intro;
+
+      for (const { start, end, type } of segments) {
+        if (start > time) {
+          bar[step(segmentTypes.default)] = start - time;
+        }
+
+        bar[step(segmentTypes[type])] = end - start;
+        time = end;
+      }
+
+      if (time + outro < length) {
+        bar[step(segmentTypes.default)] = length - outro - time;
+      }
+
+      if (outro) {
+        bar[step(segmentTypes.outro)] = outro;
+      }
+
+      bars.push(bar);
+    }
+
+    return { bars, categories: indices, colors, names };
+  }, songs);
+
   return (
     <>
       <Legend
@@ -10,7 +68,7 @@ export const SongChart = () => {
       <BarChart
         layout="vertical"
         stack
-        data={songs}
+        data={bars}
         categories={categories}
         colors={colors}
         index="name"
@@ -31,45 +89,29 @@ const getTimestamp = (seconds) => {
   return `${Math.floor(seconds / 60)}m ${formattedSeconds}`;
 };
 
-const songs = [
-  {
-    name: "For Whom The Bell Tolls",
-    Intro: 123,
-    "Main 1": 30,
-    "Chorus 1": 20,
-    "Main 2": 38,
-    "Chorus 2": 21,
-    "Solo 1": 30,
-    Outro: 10,
+const segmentTypes = {
+  default: {
+    name: "",
+    color: "emerald",
   },
-  {
-    name: "Fuel",
-    "Main 1": 40,
-    "Chorus 1": 30,
-    "Main 2": 48,
-    "Chorus 2": 31,
-    "Main 3": 50,
+  instrumental: {
+    name: "",
+    color: "amber",
   },
-];
-
-const categories = [
-  "Intro",
-  "Main 1",
-  "Chorus 1",
-  "Main 2",
-  "Chorus 2",
-  "Solo 1",
-  "Main 3",
-  "Outro",
-];
-
-const colors = [
-  "amber",
-  "emerald",
-  "indigo",
-  "emerald",
-  "indigo",
-  "fuchsia",
-  "emerald",
-  "amber",
-];
+  intro: {
+    name: "Intro",
+    color: "amber",
+  },
+  outro: {
+    name: "Outro",
+    color: "amber",
+  },
+  0: {
+    name: "Chorus",
+    color: "indigo",
+  },
+  1: {
+    name: "Solo",
+    color: "fuchsia",
+  },
+};
