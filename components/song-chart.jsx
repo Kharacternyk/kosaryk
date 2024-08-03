@@ -15,9 +15,20 @@ export const SongChart = () => {
         colors={colors}
         index="name"
         showLegend={false}
+        valueFormatter={getTimestamp}
       />
     </>
   );
+};
+
+const getTimestamp = (seconds) => {
+  const formattedSeconds = `${seconds % 60}s`;
+
+  if (seconds < 60) {
+    return formattedSeconds;
+  }
+
+  return `${Math.floor(seconds / 60)}m ${formattedSeconds}`;
 };
 
 const songs = [
@@ -55,9 +66,9 @@ const categories = [
 const colors = [
   "amber",
   "emerald",
-  "sky",
+  "indigo",
   "emerald",
-  "sky",
+  "indigo",
   "fuchsia",
   "emerald",
   "amber",
