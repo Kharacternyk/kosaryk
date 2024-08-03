@@ -1,100 +1,12 @@
-import {AppLayout, Button, Input, Table} from "@cloudscape-design/components";
-import {I18nProvider} from "@cloudscape-design/components/i18n";
-import messages from "@cloudscape-design/components/i18n/messages/all.en";
-import {Turnstile} from "@marsidev/react-turnstile";
-import {StrictMode, useEffect, useRef, useState} from "react";
-import {SongBar} from "./song-bar";
+import {StrictMode} from "react";
+import Logo from "../images/logo.svg?react";
+import {SongChart} from "./song-chart";
 
 export const App = () => {
-  const turnstileRef = useRef();
-  const [name, setName] = useState("");
-  const [bands, setBands] = useState([]);
-
-  const loadBands = async () => {
-    const response = await fetch("/api/bands");
-    setBands(await response.json());
-  };
-
-  useEffect(() => {
-    loadBands();
-  }, []);
-
-  const addBand = async () => {
-    const url = new URL("/api/bands", document.location);
-
-    url.searchParams.append("name", name);
-    url.searchParams.append(
-      "token",
-      await turnstileRef.current.getResponsePromise()
-    );
-
-    turnstileRef.current.reset();
-
-    const response = await fetch(url, { method: "post" });
-
-    if (response.ok) {
-      loadBands();
-    }
-  };
-
-  const onInput = ({ detail }) => setName(detail.value);
-
-  const deleteBand = async (identity) => {
-    const url = new URL("/api/bands", document.location);
-
-    url.searchParams.append("identity", identity);
-    url.searchParams.append(
-      "token",
-      await turnstileRef.current.getResponsePromise()
-    );
-
-    turnstileRef.current.reset();
-
-    const response = await fetch(url, { method: "delete" });
-
-    if (response.ok) {
-      loadBands();
-    }
-  };
-
-  const columnDefinitions = [
-    {
-      id: "name",
-      header: "Name",
-      cell: (band) => band.name,
-      isRowHeader: true,
-    },
-    {
-      id: "delete",
-      header: "Actions",
-      cell: (band) => (
-        <Button onClick={() => deleteBand(band.identity)}>Delete</Button>
-      ),
-    },
-  ];
-
-  const content = (
-    <>
-      <Table
-        items={bands}
-        loading={!bands}
-        columnDefinitions={columnDefinitions}
-      ></Table>
-      <Turnstile
-        ref={turnstileRef}
-        siteKey={import.meta.env.viteTurnstileSiteKey}
-      />
-      <Input value={name} onChange={onInput} />
-      <Button onClick={addBand}>Add</Button>
-      <SongBar songs={songs} />
-    </>
-  );
-
   return (
     <StrictMode>
-      <I18nProvider messages={[messages]}>
-        <AppLayout content={content} />
-      </I18nProvider>
+      <Logo className="w-24 h-24" />
+      <SongChart songs={songs} />
     </StrictMode>
   );
 };
@@ -138,7 +50,7 @@ const songs = [
       },
       {
         type: 1,
-        start: 161,
+        start: 160,
         end: 200,
       },
       {
