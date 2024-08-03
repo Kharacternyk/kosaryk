@@ -74,6 +74,7 @@ export const SongChart = ({ songs }) => {
         index="name"
         showLegend={false}
         valueFormatter={getTimestamp}
+        yAxisWidth={100}
       />
     </>
   );
