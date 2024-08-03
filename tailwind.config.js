@@ -24,10 +24,10 @@ export default {
             inverted: colors.blue[950],
           },
           background: {
-            muted: "#131A2B",
-            subtle: colors.gray[800],
-            DEFAULT: colors.gray[900],
-            emphasis: colors.gray[300],
+            muted: colors.stone[900],
+            subtle: colors.stone[700],
+            DEFAULT: colors.stone[800],
+            emphasis: colors.stone[300],
           },
           border: {
             DEFAULT: colors.gray[800],
