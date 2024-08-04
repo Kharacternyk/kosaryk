@@ -1,17 +1,28 @@
-import {BarChart, Legend} from "@tremor/react";
+import {
+  Badge,
+  BarChart,
+  Card,
+  Legend,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@tremor/react";
 import {useMemo} from "react";
 
 export const SongChart = ({ songs }) => {
-  const { bars, categories, colors, names } = useMemo(() => {
+  const { bars, categories, colors, Tooltip } = useMemo(() => {
     const bars = [];
     const indices = [];
-    const names = [];
     const colors = [];
-    const step = ({ name, color }) => {
+    const names = [];
+    const step = ({ color, name }) => {
       const index = indices.length;
       indices.push(String(index));
-      names.push(name);
       colors.push(color);
+      names.push(name);
       return index;
     };
 
@@ -56,14 +67,52 @@ export const SongChart = ({ songs }) => {
       bars.push(bar);
     }
 
-    return { bars, categories: indices, colors, names };
+    const Tooltip = ({ payload, active }) => {
+      if (!active || !payload) {
+        return null;
+      }
+
+      let time = 0;
+      const rows = [];
+
+      for (const { value, dataKey, color } of payload) {
+        const row = (
+          <TableRow key={dataKey}>
+            <TableCell>
+              <Badge color={color}>{names[dataKey]}</Badge>
+            </TableCell>
+            <TableCell>{getTimestamp(time)}</TableCell>
+            <TableCell>{getTimestamp(time + value)}</TableCell>
+          </TableRow>
+        );
+        rows.push(row);
+        time += value;
+      }
+
+      return (
+        <Card>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Segment</TableHeaderCell>
+                <TableHeaderCell>From</TableHeaderCell>
+                <TableHeaderCell>Until</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{rows}</TableBody>
+          </Table>
+        </Card>
+      );
+    };
+
+    return { bars, categories: indices, colors, Tooltip };
   }, songs);
 
   return (
     <>
       <Legend
         categories={["Intro/Outro", "Chorus", "Solo"]}
-        colors={["amber", "sky", "fuchsia"]}
+        colors={["amber", "blue", "fuchsia"]}
       />
       <BarChart
         layout="vertical"
@@ -75,28 +124,33 @@ export const SongChart = ({ songs }) => {
         showLegend={false}
         valueFormatter={getTimestamp}
         yAxisWidth={100}
+        customTooltip={Tooltip}
       />
     </>
   );
 };
 
-const getTimestamp = (seconds) => {
-  const formattedSeconds = `${seconds % 60}s`;
+const getTimestamp = (time) => {
+  const seconds = time % 60;
+  const minutes = Math.floor(time / 60);
 
-  if (seconds < 60) {
-    return formattedSeconds;
+  if (!minutes) {
+    return `${seconds}s`;
+  }
+  if (!seconds) {
+    return `${minutes}m`;
   }
 
-  return `${Math.floor(seconds / 60)}m ${formattedSeconds}`;
+  return `${minutes}m ${seconds}s`;
 };
 
 const segmentTypes = {
   default: {
-    name: "",
+    name: "Verses",
     color: "emerald",
   },
   instrumental: {
-    name: "",
+    name: "Instrumental",
     color: "amber",
   },
   intro: {
@@ -109,10 +163,10 @@ const segmentTypes = {
   },
   0: {
     name: "Chorus",
-    color: "indigo",
+    color: "blue",
   },
   1: {
     name: "Solo",
-    color: "fuchsia",
+    color: "pink",
   },
 };
