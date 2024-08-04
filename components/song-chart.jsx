@@ -110,10 +110,7 @@ export const SongChart = ({ songs }) => {
 
   return (
     <>
-      <Legend
-        categories={["Intro/Outro", "Chorus", "Solo"]}
-        colors={["amber", "blue", "fuchsia"]}
-      />
+      {legend}
       <BarChart
         layout="vertical"
         stack
@@ -129,6 +126,13 @@ export const SongChart = ({ songs }) => {
     </>
   );
 };
+
+const legend = (
+  <Legend
+    categories={["Intro/Outro/Instrumental", "Stuff", "Chorus", "Solo"]}
+    colors={["amber", "emerald", "blue", "pink"]}
+  />
+);
 
 const getTimestamp = (time) => {
   const seconds = time % 60;
@@ -146,7 +150,7 @@ const getTimestamp = (time) => {
 
 const segmentTypes = {
   default: {
-    name: "Verses",
+    name: "Stuff",
     color: "emerald",
   },
   instrumental: {
