@@ -17,11 +17,11 @@ export default {
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
-            muted: colors.blue[950],
-            subtle: colors.blue[800],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[400],
-            inverted: colors.blue[950],
+            muted: colors.emerald[950],
+            subtle: colors.emerald[800],
+            DEFAULT: colors.emerald[500],
+            emphasis: colors.emerald[400],
+            inverted: colors.emerald[950],
           },
           background: {
             muted: colors.stone[900],
@@ -30,17 +30,17 @@ export default {
             emphasis: colors.stone[300],
           },
           border: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: colors.stone[700],
           },
           ring: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: colors.stone[700],
           },
           content: {
-            subtle: colors.gray[500],
-            DEFAULT: colors.gray[300],
-            emphasis: colors.gray[200],
-            strong: colors.gray[50],
-            inverted: colors.gray[950],
+            subtle: colors.stone[500],
+            DEFAULT: colors.stone[300],
+            emphasis: colors.stone[200],
+            strong: colors.stone[50],
+            inverted: colors.stone[950],
           },
         },
       },
