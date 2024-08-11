@@ -17,17 +17,13 @@ create table if not exists songs(
     identity integer primary key,
     branch integer not null references songBranches,
     timestamp integer not null,
-    title text not null,
-    duration integer,
-    intro integer,
-    outro integer
+    title text not null
 ) strict;
 
 create table if not exists segments(
     identity integer primary key,
     song integer not null references songs,
     type integer not null,
-    start integer not null,
     end integer not null
 ) strict;
 
