@@ -18,7 +18,7 @@ export const SongChart = ({ songs }) => {
     const indices = [];
     const colors = [];
     const names = [];
-    const step = ({ color, name }) => {
+    const step = ([name, color]) => {
       const index = indices.length;
       indices.push(String(index));
       colors.push(color);
@@ -26,42 +26,13 @@ export const SongChart = ({ songs }) => {
       return index;
     };
 
-    for (const {
-      name,
-      length,
-      intro,
-      outro,
-      instrumental,
-      segments,
-    } of songs) {
-      if (instrumental) {
-        bars.push({ name, [step(segmentTypes.instrumental)]: length });
-        continue;
-      }
-
+    for (const { name, segments } of songs) {
       const bar = { name };
+      let time = 0;
 
-      if (intro) {
-        bar[step(segmentTypes.intro)] = intro;
-      }
-
-      let time = intro;
-
-      for (const { start, end, type } of segments) {
-        if (start > time) {
-          bar[step(segmentTypes.default)] = start - time;
-        }
-
-        bar[step(segmentTypes[type])] = end - start;
+      for (const [index, { end, type }] of segments.entries()) {
+        bar[step(segmentTypes[type](index, segments.length))] = end - time;
         time = end;
-      }
-
-      if (time + outro < length) {
-        bar[step(segmentTypes.default)] = length - outro - time;
-      }
-
-      if (outro) {
-        bar[step(segmentTypes.outro)] = outro;
       }
 
       bars.push(bar);
@@ -129,7 +100,7 @@ export const SongChart = ({ songs }) => {
 
 const legend = (
   <Legend
-    categories={["Intro/Outro/Instrumental", "Stuff", "Chorus", "Solo"]}
+    categories={["Instrumental", "Lyrics", "Chorus", "Solo"]}
     colors={["amber", "emerald", "blue", "pink"]}
   />
 );
@@ -148,29 +119,15 @@ const getTimestamp = (time) => {
   return `${minutes}m ${seconds}s`;
 };
 
-const segmentTypes = {
-  default: {
-    name: "Stuff",
-    color: "emerald",
-  },
-  instrumental: {
-    name: "Instrumental",
-    color: "amber",
-  },
-  intro: {
-    name: "Intro",
-    color: "amber",
-  },
-  outro: {
-    name: "Outro",
-    color: "amber",
-  },
-  0: {
-    name: "Chorus",
-    color: "blue",
-  },
-  1: {
-    name: "Solo",
-    color: "pink",
-  },
-};
+const segmentTypes = [
+  () => ["Lyrics", "emerald"],
+  (index, length) =>
+    length === 1
+      ? ["Instrumental", "amber"]
+      : !index
+      ? ["Intro", "amber"]
+      : index + 1 === length
+      ? ["Outro", "amber"]
+      : ["Solo", "pink"],
+  () => ["Chorus", "blue"],
+];

@@ -14,89 +14,114 @@ export const App = () => {
 const songs = [
   {
     name: "Fuel",
-    length: 300,
-    intro: 0,
-    outro: 39,
-    instrumental: false,
     segments: [
       {
         type: 0,
-        start: 60,
+        end: 60,
+      },
+      {
+        type: 2,
         end: 75,
       },
       {
-        type: 0,
-        start: 90,
-        end: 105,
+        type: 1,
+        end: 90,
       },
       {
         type: 0,
-        start: 200,
+        end: 105,
+      },
+      {
+        type: 2,
         end: 230,
+      },
+      {
+        type: 1,
+        end: 300,
       },
     ],
   },
   {
     name: "For Whom The Bell Tolls",
-    length: 270,
-    intro: 123,
-    outro: 9,
-    instrumental: false,
     segments: [
       {
+        type: 1,
+        end: 123,
+      },
+      {
         type: 0,
-        start: 150,
         end: 160,
       },
       {
         type: 1,
-        start: 160,
         end: 200,
       },
       {
-        type: 0,
-        start: 220,
+        type: 2,
         end: 240,
+      },
+      {
+        type: 1,
+        end: 270,
       },
     ],
   },
   {
     name: "Master Of Puppets",
-    length: 476,
-    intro: 61,
-    outro: 26,
-    instrumental: false,
     segments: [
       {
+        type: 1,
+        end: 61,
+      },
+      {
         type: 0,
-        start: 100,
         end: 120,
       },
       {
-        type: 0,
-        start: 150,
+        type: 2,
         end: 170,
       },
       {
-        type: 1,
-        start: 200,
-        end: 220,
+        type: 0,
+        end: 211,
+      },
+      {
+        type: 2,
+        end: 253,
       },
       {
         type: 1,
-        start: 250,
-        end: 280,
+        end: 303,
       },
       {
         type: 0,
-        start: 330,
-        end: 380,
+        end: 321,
+      },
+      {
+        type: 1,
+        end: 341,
+      },
+      {
+        type: 0,
+        end: 368,
+      },
+      {
+        type: 2,
+        end: 400,
+      },
+      {
+        type: 1,
+        end: 476,
       },
     ],
   },
   {
     name: "Orion",
-    length: 462,
-    instrumental: true,
+    segments: [
+      {
+        type: 1,
+        end: 462,
+      },
+    ],
   },
 ];
